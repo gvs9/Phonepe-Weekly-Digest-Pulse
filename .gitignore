@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables
+.env
+
+# Google credentials (never commit)
+credentials/
+credentials.json
+token.json
+
+# Generated pulse outputs
+data/pulse_*.md
+data/report_*.md
+data/email_*.txt
+output/
+
+# Pipeline state
+.pipeline_state.json
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

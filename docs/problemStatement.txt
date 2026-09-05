@@ -1,0 +1,33 @@
+The goal is to turn raw mobile-store feedback into a weekly pulse your team can scan in minutes: what users care about, what they actually said, and what to do next. Reviews are already public; your job is to aggregate, theme, summarize, and deliver that insight through familiar surfaces—Google Docs for the written pulse and Gmail for a draft you can send yourself—without handling credentials or REST wiring yourself.
+End-to-end flow (what “done” looks like):
+Pull recent App Store and Play Store reviews for your product (within the rules below).
+Cluster them into a small set of themes and distill a one-page weekly note.
+Put that note where stakeholders can read it (Google Docs).
+Create a draft email to yourself (or an alias) that contains or links to that pulse (Gmail).
+
+Deliverables
+Weekly one-page pulse must include:
+Top themes (what people are talking about most)
+Real user quotes (verbatim snippets from reviews, no invented wording)
+Three action ideas (concrete next steps grounded in the themes)
+Finally: send yourself a draft email containing this weekly note (or a clear pointer to it).
+
+Who This Helps
+Audience
+Why
+Product / Growth
+Prioritize fixes and improvements from real signals
+Support
+Align messaging with what users are actually saying
+Leadership
+One-page health check without drowning in raw reviews
+
+
+What You Must Build
+Import reviews from roughly the last 8–12 weeks (fields such as rating, title, text, date—whatever your export provides).
+Group reviews into at most 5 themes (examples: onboarding, KYC, payments, statements, withdrawals—pick what fits your product).
+Generate a weekly one-page note with:
+Top 3 themes (subset of your themes as appropriate)
+3 user quotes
+3 action ideas
+Draft an email with the note to yourself or an alias.

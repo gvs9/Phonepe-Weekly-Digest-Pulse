@@ -1,0 +1,47 @@
+# App identity -- fill these in before running the scraper
+app:
+  name: "PhonePe"
+  play_store_id: "com.phonepe.app"
+  app_store_id: "1170055821"
+  country: "in"
+
+# MCP Server endpoint
+mcp_server_url: "https://mcp-server2-production-5873.up.railway.app/sse"
+
+# Review ingestion window
+review_window_weeks: 12  # 8-12 weeks; adjust per run
+
+# Themes (product-specific, max 5)
+themes:
+  - name: onboarding
+    keywords: [signup, register, first time, welcome, tutorial, onboard, getting started]
+    action_template: "Identify where users drop off in the onboarding flow and add contextual tooltips or a progress bar."
+
+  - name: payments
+    keywords: [pay, payment, transfer, transaction, failed, debit, charge, money, fund, wallet]
+    action_template: "Investigate the top payment failure reason and add a clear error message with a retry option."
+
+  - name: kyc
+    keywords: [kyc, verify, verification, document, identity, id check, id proof, selfie, approve]
+    action_template: "Add real-time KYC status updates and an estimated completion time to reduce user anxiety."
+
+  - name: statements
+    keywords: [statement, history, export, download, pdf, receipt, record, transaction history]
+    action_template: "Allow users to export statements in multiple formats (PDF, CSV) directly from the app."
+
+  - name: withdrawals
+    keywords: [withdraw, withdrawal, cash out, redeem, payout, bank transfer, refund]
+    action_template: "Reduce withdrawal processing time and surface a clear status tracker for pending withdrawals."
+
+# Delivery
+google_doc_id: ""          # Set after first run or paste an existing Doc ID
+gmail_recipient: ""        # e.g. you@example.com
+
+# Groq LLM
+groq_model: "meta-llama/llama-prompt-guard-2-22m"
+# Groq Rate Limits for the above model:
+# RPM: 30, RPD: 14.4k, TPM: 15k, TPD: 500k
+
+# Pulse output
+min_reviews_per_theme: 3   # themes below this count trigger a warning
+quote_min_length: 30       # minimum characters for a quote to be selected
