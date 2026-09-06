@@ -376,19 +376,19 @@ Create a Gmail draft containing the pulse using the MCP server, then wire the fu
 
 ### Tasks
 
-- [ ] **6.1 — Gmail MCP Client (`integrations/mcp_client.py`)**
+- [x] **6.1 — Gmail MCP Client (`integrations/mcp_client.py`)**
   - `create_gmail_draft_mcp(pulse: PulseNote, doc_url: str, config: dict) -> str`
   - Use the SSE MCP client connected to `https://mcp-server2-production-5873.up.railway.app/sse`
   - Call the `gmail_draft_email` tool provided by the server (optionally `gmail_send_email` if configured to send directly)
   - Construct the email plain-text body and HTML body featuring the Doc link
   - Return the draft ID or confirmation string
 
-- [ ] **6.2 — Email template**
+- [x] **6.2 — Email template**
   - Subject: `Weekly App Feedback Pulse — [Week ending DATE]` (from `pulse.email_subject`)
   - Body sections mirror the pulse format (from `pulse.email_intro` and `pulse.as_plain_text()`)
   - Footer: `View full pulse in Google Docs: [Doc URL]`
 
-- [ ] **6.3 — End-to-end orchestrator (`main.py`)**
+- [x] **6.3 — End-to-end orchestrator (`main.py`)**
   - Wire all phases into a single `run_pipeline()` function:
     ```
     reviews  = parse_reviews(data_dir)
@@ -407,7 +407,7 @@ Create a Gmail draft containing the pulse using the MCP server, then wire the fu
 - No direct Google APIs are used.
   - CLI: `python main.py` runs the full pipeline; `python main.py --phase N` runs up to phase N
 
-- [ ] **6.4 — Logging & summary**
+- [x] **6.4 — Logging & summary**
   - Log each pipeline step with timestamp and status
   - Print final summary:
     ```
@@ -419,16 +419,20 @@ Create a Gmail draft containing the pulse using the MCP server, then wire the fu
     ✅ Gmail draft:       Draft ID abc123 ready in your Drafts folder
     ```
 
-- [ ] **6.5 — Integration test (dry-run mode)**
+- [x] **6.5 — Integration test (dry-run mode)**
   - `python main.py --dry-run` runs the full pipeline without calling MCP tools
   - Outputs the pulse markdown and email content to stdout only
 
-- [ ] **6.6 — Documentation**
+- [x] **6.6 — Documentation**
   - Update `README.md` with:
     - Setup instructions (Python version, `pip install -r requirements.txt`)
     - MCP server configuration steps
     - `config.yaml` customisation guide
     - Example run commands
+
+- [x] **6.7 — Automated Scheduling**
+  - Add GitHub Actions workflow `fetch-reviews.yml` to run the full pipeline automatically every Sunday at midnight.
+  - Push output artifacts (like new Pulse reports and ingested reviews) back to the repo.
 
 ### Final Acceptance Criteria
 - `python main.py` completes without error and produces:
