@@ -4,3 +4,6 @@ python-dateutil>=2.8
 google-play-scraper>=1.2
 app-store-scraper>=0.3
 langdetect>=1.0.9
+mcp>=1.0.0
+groq>=0.9
+python-dotenv>=1.0
