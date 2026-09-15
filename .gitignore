@@ -34,3 +34,10 @@ Thumbs.db
 
 # Logs
 *.log
+node_modules
+
+# Unused React / Frontend prototypes
+frontend/
+package-lock.json
+stitch_prompt.md
+docs/stitch_mobile_store_feedback/
