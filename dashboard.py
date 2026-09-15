@@ -93,7 +93,7 @@ with st.sidebar:
     
     st.markdown("---")
     st.info("🔄 Sync: 8m ago (99.8% parsed)")
-    st.markdown("**User:** Aayush Patel (Lead PM)")
+    st.markdown("**User:** Gitesh.s (Lead PM)")
 
 # ---------------------------------------------------------------------------
 # Header (Search & Filters)
