@@ -1,4 +1,4 @@
-﻿# Mobile-Store Feedback — Architecture
+# Mobile-Store Feedback — Architecture
 
 > Derived from [`docs/problemStatement.txt`](./docs/problemStatement.txt) and [`context.md`](./context.md)
 
@@ -235,6 +235,7 @@ Mobile-Store Feedback/
 | Google Docs as the canonical store | Stakeholders can access any week''s pulse via a shared link |
 | Config-driven themes | Teams with different products can adapt without code changes |
 | 8–12 week window | Balances recency with enough volume for statistical significance |
+| Vendoring Dependencies | `app-store-scraper` is vendored directly into the repository to permanently resolve pip dependency conflicts (specifically around legacy `requests` pinning) in modern cloud environments like Streamlit Cloud. |
 
 ---
 
