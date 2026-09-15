@@ -7,3 +7,5 @@ langdetect>=1.0.9
 mcp>=1.0.0
 groq>=0.9
 python-dotenv>=1.0
+streamlit>=1.30.0
+plotly>=5.18.0
