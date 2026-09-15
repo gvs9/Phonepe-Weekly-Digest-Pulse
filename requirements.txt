@@ -1,8 +1,8 @@
 pandas>=2.0
 pyyaml>=6.0
 python-dateutil>=2.8
-# google-play-scraper>=1.2  # Un-comment for local fetching (--fetch)
-# app-store-scraper>=0.3    # Un-comment for local fetching (--fetch)
+google-play-scraper>=1.2
+# app-store-scraper>=0.3    # Vendored locally to avoid dependency conflict
 langdetect>=1.0.9
 mcp>=1.0.0
 groq>=0.9
