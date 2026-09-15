@@ -2,7 +2,18 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from mock_data import trend_data, sentiment_data, category_data, mock_reviews, action_ideas
+import sys
+import os
+from pathlib import Path
+from main import load_config, run_phase_1, run_phase_2, run_phase_4, run_phase_5, run_phase_6
+from pulse.generator import build_pulse
 
+if 'pulse_note' not in st.session_state:
+    st.session_state['pulse_note'] = None
+if 'doc_url' not in st.session_state:
+    st.session_state['doc_url'] = None
+if 'draft_id' not in st.session_state:
+    st.session_state['draft_id'] = None
 # Must be the first Streamlit command
 st.set_page_config(
     page_title="FeedbackPulse",
@@ -94,7 +105,19 @@ with col1:
 with col2:
     date_range = st.selectbox("Date Range", ["Last 12 Weeks", "Last 30 Days", "Last 7 Days", "Year to Date"], label_visibility="collapsed")
 with col3:
-    st.button("🔄 Sync Stores", use_container_width=True, type="primary")
+    if st.button("🔄 Sync Stores", use_container_width=True, type="primary"):
+        with st.spinner("Running Backend Pipeline (Phases 1-4)..."):
+            try:
+                config = load_config()
+                filtered = run_phase_1(config, fetch=False)
+                ranked_themes, other_bucket = run_phase_2(config, filtered)
+                pulse = build_pulse(ranked_themes, other_bucket)
+                enriched_pulse = run_phase_4(pulse, config, dry_run=False)
+                
+                st.session_state['pulse_note'] = enriched_pulse
+                st.success("Pipeline executed successfully!")
+            except Exception as e:
+                st.error(f"Pipeline error: {str(e)}")
 
 st.markdown("---")
 
@@ -312,9 +335,40 @@ elif view == "Action Ideation":
 elif view == "Weekly Reporting":
     st.title("Weekly Reporting")
     
-    col1, col2, col3 = st.columns([1,1,6])
+    col1, col2, col3, col4 = st.columns([1,1,1,5])
     col1.button("📄 Export PDF")
-    col2.button("✉️ Draft Gmail")
+    
+    if col2.button("📝 Google Docs"):
+        if st.session_state['pulse_note'] is None:
+            st.warning("Please run 'Sync Stores' first to generate the pulse!")
+        else:
+            with st.spinner("Connecting to MCP Server..."):
+                try:
+                    config = load_config()
+                    doc_url = run_phase_5(st.session_state['pulse_note'], config, dry_run=False)
+                    st.session_state['doc_url'] = doc_url
+                    if doc_url:
+                        st.success(f"Successfully published: {doc_url}")
+                    else:
+                        st.error("Failed to publish to Google Docs")
+                except Exception as e:
+                    st.error(f"MCP Error: {str(e)}")
+                    
+    if col3.button("✉️ Draft Gmail"):
+        if st.session_state['pulse_note'] is None:
+            st.warning("Please run 'Sync Stores' first to generate the pulse!")
+        else:
+            with st.spinner("Connecting to MCP Server..."):
+                try:
+                    config = load_config()
+                    draft_id = run_phase_6(st.session_state['pulse_note'], st.session_state.get('doc_url'), config, dry_run=False)
+                    st.session_state['draft_id'] = draft_id
+                    if draft_id:
+                        st.success(f"Successfully created draft: {draft_id}")
+                    else:
+                        st.error("Failed to draft email")
+                except Exception as e:
+                    st.error(f"MCP Error: {str(e)}")
     
     st.markdown("---")
     
